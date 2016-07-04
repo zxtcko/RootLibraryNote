@@ -15,7 +15,7 @@ Notes on iOS basic library like Foundation, CoreAnimation
 	3.	UIView是iOS系统中界面元素的基础，所有界面元素都是继承自它。它本身完全是由CoreAnimation来实现。
 	4.	一个UIView上可以由n个CALayer，每个CALayer显示一种东西，增强UIView的展现能力。 
 	5.	In iOS, every view is backed by a corresponding layer object but in OS X you must decide which views should have layers.
-<img src = "IOSAnimationDemo/basics_layer_rendering_2x.png" style = "width:600px;"/>
+<img src = "https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/Art/basics_layer_rendering_2x.png" style = "width:600px;"/>
 
 *	Layer主要分为三类：
 	1.	数据层（model layer tree）是与app交互最多的，这一层的object存储动画的属性值。
