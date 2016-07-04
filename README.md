@@ -6,7 +6,7 @@ Notes on iOS basic library like Foundation, CoreAnimation
 *	Core Animation is a graphics rendering and animation infrastructure available on both iOS and OS X that you use to animate the views and other visual elements of your app.
 *	 Core Animation sits beneath AppKit and UIKit and is integrated tightly into the view workflows of Cocoa and Cocoa Touch.
 
-<img src = "IOSAnimationDemo/ca_architecture_2x.png" style = "width:300px;"/>
+<img src = "IOSAnimationDemo-master/ca_architecture_2x.png" style = "width:300px;"/>
 
 *	UIView和CALayer的区别：Layers are not a replacement for your app’s views—that is, you cannot create a visual interface based solely on layer objects. Layers provide infrastructure for your views. Specifically, layers make it easier and more efficient to draw and animate the contents of views and maintain high frame rates while doing so. However, there are many things that layers do not do. Layers do not handle events, draw content, participate in the responder chain, or do many other things. For this reason, every app must still have one or more views to handle those kinds of interactions.
 	
