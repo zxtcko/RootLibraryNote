@@ -170,3 +170,16 @@ Notes on iOS basic library like Foundation, CoreAnimation
 *	BackgroundColor, Contents, Border的关系
 
 <img src = "https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/Art/layer_border_background_2x.png" style = "width:300px;"/>
+
+
+##二、Foundation
+[教程](http://swifter.tips/foundation-framework/)
+###Basic
+Swift 的基本类型都可以无缝转换到 Foundation 框架中的对应类型
+
+这个转换不仅是自动的，而且是双向的，而且无论何时只要有可能，转换的结果会更倾向于使用 Swift 类型。也就是说，只要你不写明类型是需要 NS 开头的类型的时候，你都会得到一个 Swift 类型。这类转换有下面的对应关系：
+
+*	String - NSString
+*	Int, Float, Double, Bool 以及其他与数字有关的类型 - NSNumber
+*	Array - NSArray
+*	Dictionary - NSDictionary
