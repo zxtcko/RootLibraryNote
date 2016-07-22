@@ -260,3 +260,14 @@ The default cache policy for an NSURLRequest instance is
     return newCachedResponse;
 }
 ```
+
+
+```Objective-C
+
+if (有网) { 
+cachePolicy = NSURLRequestUseProtocolCachePolicy; 
+} 
+else{ 
+cachePolicy = NSURLRequestReturnCacheDataDontLoad; 
+}
+```
