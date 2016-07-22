@@ -214,3 +214,49 @@ Swift 的基本类型都可以无缝转换到 Foundation 框架中的对应类�
 *	Put data cache files in the Library/Caches/ directory. Cache data can be used for any data that needs to persist longer than temporary data, but not as long as a support file. Generally speaking, the application does not require cache data to operate properly, but it can use cache data to improve performance. Examples of cache data include (but are not limited to) database cache files and transient, downloadable content. Note that the system may delete the Caches/ directory to free up disk space, so your app must be able to re-create or download these files as needed.
 
 
+##四、Caches In NSUrlSession
+
+###Basics
+An NSURLRequest instance specifies how the local cache is used by setting the cache policy to one of the NSURLRequestCachePolicy
+
+The default cache policy for an NSURLRequest instance is 
+
+*	NSURLRequestUseProtocolCachePolicy. The NSURLRequestUseProtocolCachePolicy behavior is protocol specific and is defined as being the best conforming policy for the protocol.
+
+*	Setting the cache policy to NSURLRequestReloadIgnoringCacheData causes the URL loading system to load the data from the originating source, ignoring the cache completely.
+
+*	The NSURLRequestReturnCacheDataElseLoad cache policy causes the URL loading system to use cached data, ignoring its age or expiration date, and to load the data from the originating source only if there is no cached version.
+
+*	The NSURLRequestReturnCacheDataDontLoad policy allows an application to specify that only data in the cache should be returned. Attempting to create an NSURLConnection or NSURLDownload instance with this cache policy returns nil immediately if the response is not in the local cache. This is similar in function to an “offline” mode and never brings up a network connection.
+
+###Implementation
+
+```Objective-C
+-(NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                 willCacheResponse:(NSCachedURLResponse *)cachedResponse
+{
+    NSCachedURLResponse *newCachedResponse = cachedResponse;
+ 
+    NSDictionary *newUserInfo;
+    newUserInfo = [NSDictionary dictionaryWithObject:[NSDate date]
+                                                 forKey:@"Cached Date"];
+    if ([[[[cachedResponse response] URL] scheme] isEqual:@"https"]) {
+#if ALLOW_IN_MEMORY_CACHING
+        newCachedResponse = [[NSCachedURLResponse alloc]
+                                initWithResponse:[cachedResponse response]
+                                    data:[cachedResponse data]
+                                    userInfo:newUserInfo
+                                    storagePolicy:NSURLCacheStorageAllowedInMemoryOnly];
+#else // !ALLOW_IN_MEMORY_CACHING
+        newCachedResponse = nil
+#endif // ALLOW_IN_MEMORY_CACHING
+    } else {
+        newCachedResponse = [[NSCachedURLResponse alloc]
+                                initWithResponse:[cachedResponse response]
+                                    data:[cachedResponse data]
+                                    userInfo:newUserInfo
+                                    storagePolicy:[cachedResponse storagePolicy]];
+    }
+    return newCachedResponse;
+}
+```
