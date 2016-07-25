@@ -271,3 +271,19 @@ else{
 cachePolicy = NSURLRequestReturnCacheDataDontLoad; 
 }
 ```
+
+###NSURLCache (2 lines for 80% work)
+
+```Objective-C
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // Set app-wide shared cache (first number is megabyte value)
+    NSUInteger cacheSizeMemory = 500*1024*1024; // 500 MB
+    NSUInteger cacheSizeDisk = 500*1024*1024; // 500 MB
+    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
+    [NSURLCache setSharedURLCache:sharedCache];
+    sleep(1); // Critically important line, sadly, but it's worth it!
+}
+
+```
